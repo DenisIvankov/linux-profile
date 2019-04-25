@@ -7,7 +7,7 @@
     //
     "cmake.buildToolArgs": [
     ],
-    "cmake.cmakePath": "/opt/kitware/cmake/v3.12.2/bin/cmake",
+    "cmake.cmakePath": "/usr/local/bin/cmake",
     "cmake.configureArgs": [
         "-DBOOST_ROOT=/opt/boost/boost-1.68.0-gcc-7.3.1-fPIC"
     ],
@@ -15,7 +15,25 @@
         "BOOST_ROOT": "/opt/boost/boost-1.68.0-gcc-7.3.1-fPIC"
     },
     "cmake.configureOnOpen": true,
-    
+
+    //
+    // "csharp"
+    //
+    "csharp.referencesCodeLens.enabled": false,
+    "csharp.testsCodeLens.enabled": false,
+
+    //
+    // css bullshit
+    //
+    "css.lint.ieHack": "error",
+    "css.lint.float": "error",
+    "css.lint.important": "error",
+    "css.trace.server": "verbose",
+    "scss.lint.float": "error",
+    "less.lint.float": "error",
+    "scss.lint.ieHack": "error",
+    "json.trace.server": "verbose",
+
     //
     // C_cpp
     //
@@ -23,14 +41,30 @@
     "C_Cpp.clang_format_fallbackStyle": "none",
     "C_Cpp.default.cppStandard": "c++17",
     "C_Cpp.default.cStandard": "c11",
-    "C_Cpp.default.includePath": "/opt/boost/boost-1.68.0-gcc-7.3.1-fPIC/include",
+    "C_Cpp.default.includePath": [
+        "/usr/local/boost-1.69.0-gcc7.4-fPIC/include"
+    ],
     "C_Cpp.default.intelliSenseMode": "gcc-x64",
     "C_Cpp.loggingLevel": "Warning",
+
+    //
+    // "docker"
+    //
+    "docker.languageserver.diagnostics.emptyContinuationLine": "error",
+    "docker.languageserver.diagnostics.deprecatedMaintainer": "error",
+    "docker.languageserver.diagnostics.instructionCasing": "error",
+    "docker.languageserver.diagnostics.directiveCasing": "error",
+    "docker.languageserver.diagnostics.instructionCmdMultiple": "error",
+    "docker.languageserver.diagnostics.instructionEntrypointMultiple": "error",
+    "docker.languageserver.diagnostics.instructionHealthcheckMultiple": "error",
+    "docker.languageserver.diagnostics.instructionJSONInSingleQuotes": "error",
+    "docker.truncateMaxLength": 70,
 
     //
     // "editor"
     //
     "editor.cursorStyle": "block",
+    "editor.codeLens": false,
     "editor.fontFamily": "'monospace'",
     "editor.fontSize": 10,
     "editor.insertSpaces": false, // tabs plzkthx
@@ -42,6 +76,11 @@
     ],
     "editor.wordWrap": "off", // "wordWrapColumn",
     "editor.wordWrapColumn": 80,
+
+    //
+    // "extensions"
+    //
+    "extensions.ignoreRecommendations": true,
 
     //
     // "files"
@@ -102,6 +141,12 @@
         "typeinfo": "cpp",
         "utility": "cpp"
     },
+    "files.autoSave": "off",
+
+    //
+    // "git"
+    //
+    "git.enableCommitSigning": true,
 
     //
     // "[markdown]"
@@ -111,15 +156,27 @@
     },
 
     //
+    // "merge-conflict"
+    //
+    "merge-conflict.codeLens.enabled": false,
+
+    //
     // "python"
     //
     "[python]": {
         "editor.detectIndentation": false,
         "editor.useTabStops": false,
-        "editor.insertSpaces": true,
+        "editor.insertSpaces": true
     },
     "python.venvPath": "/home/keithb/python-venvs",
     "python.pythonPath": "/usr/bin/python3",
+
+    //
+    // "razor"
+    // This is part of csharp bullshit
+    // https://github.com/aspnet/Razor.VSCode
+    //
+    "razor.disabled": true,
 
     //
     // "terminal"
@@ -130,12 +187,6 @@
     "terminal.integrated.cursorStyle": "block",
     "terminal.integrated.enableBell": true,
     "terminal.integrated.rendererType": "dom",
-
-    // wait what was this for?
-    // "[markdown]"
-    "[markdown]": {
-        "editor.wordWrap": "off"
-    },
 
     //
     // "workbench"

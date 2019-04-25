@@ -47,9 +47,59 @@ fi
 export EDITOR="$(which vim)"
 export VISUAL="${EDITOR}"
 
+
 # Better prompt for shell, but only set if PS1 has already been set (PS1 is not set for non-interactive sessions)
-[ -n "$PS1" ] && \
-  export PS1="\[$(tput sgr0)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h\[$(tput setaf 2)\]:\[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
+source "${HOME}/.bash/fancy.bash"
+prompt_previous_process_status()
+{
+	case "$1" in
+	0) _green_;;
+	*) _red_ && _bold_;;
+	esac
+	return "$1"
+}
+if [ -n "$PS1" ]
+then
+	# Bash wants to count the number of characters in the prompt.
+	# In order to do that, it needs to know which characters are
+	# control characters so it doesn't count them in the width.
+	# To do that, the control characters must be wrapped in
+	# escaped square brackets.
+	#
+	# It also seems that the brackets must be directly in the string
+	# assigned to PS1, and not emitted from a subshell. So for
+	# example, prompt_previous_process_status can emit EITHER the
+	# control characters OR the status code. Ugh. Further complicating
+	# is that the function gets called at print time, which garbles
+	# the previous process's exit status later; workaround for that
+	# is fairly straightfoward: just return the same exit code.
+	#
+	# The control characters are emitted from the functions in
+	# fancy.bash.
+	#
+	# One object per line here. Using a heredoc with escaped
+	# newlines to concatenate the complexity to a single line.
+	PS1=$(cat <<EOF
+\[$(_reset_)\]\
+\[$(_red_)\][ \
+\[$(_italic_)$(_blue_)\]\D{%F}T\D{%T}\D{%z}\
+\[$(_noitalic_)$(_red_)\] \
+\[$(_red_)\]]\
+
+\[$(_red_)\][\
+\[\$(prompt_previous_process_status \$?)\]\$(printf '%3.3s' \$?)\[$(_reset_)\] \
+\[$(_highlight_)\]\\\$\[$(_nohighlight_)\] \
+\[$(_yellow_)\]\u\
+\[$(_green_)\]@\
+\[$(_blue_)\]\h\
+\[$(_green_)\]:\
+\[$(_magenta_)\]\w\
+\[$(_red_)\]] \
+\[$(_reset_)\]
+EOF
+)
+	export PS1
+fi
 
 # KeithB: fix Terminal titles with a new prompt
 export PROMPT_COMMAND='echo -en "\033]0;$(whoami)@$(hostname):${PWD}\a"'
@@ -96,6 +146,8 @@ then
 fi
 
 export PATH="/opt/kitware/cmake/v3.12.2/bin:${PATH}"
-export BOOST_ROOT=/opt/boost/boost-1.67.0-gcc-7.3.1-fPIC
+export BOOST_ROOT=/opt/boost/current
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
+source "${HOME}/.bash/garbage-executables.bash"
 
